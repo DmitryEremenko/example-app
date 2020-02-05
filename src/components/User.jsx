@@ -1,27 +1,36 @@
-import React, {useEffect} from 'react';
-import { connect } from "react-redux";
-import { getUser } from "../actions";
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { getUser } from '../actions';
 
-
-const User = ({ getUser, match, user }) => {
-
-
+const User = ({ getUserData, match, user }) => {
   useEffect(() => {
-    getUser(match.params.id);
-  }, [getUser, match]);
+    getUserData(match.params.id);
+  }, [getUserData, match]);
 
   return <div>{user.name}</div>;
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user,
   };
-}
+};
 
-const mapDispatchToProps = (dispatch) => ({
-  getUser: (id) => dispatch(getUser(id))
-})
+const mapDispatchToProps = dispatch => ({
+  getUser: id => dispatch(getUser(id)),
+});
 
+User.defaultProps = {
+  getUserData: () => null,
+  match: {},
+  user: {},
+};
+
+User.propTypes = {
+  getUserData: PropTypes.func,
+  match: PropTypes.objectOf,
+  user: PropTypes.objectOf,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(User);
