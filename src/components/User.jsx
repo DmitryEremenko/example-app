@@ -18,11 +18,11 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  getUser: id => dispatch(getUser(id)),
+  getUserData: id => dispatch(getUser(id)),
 });
 
 User.defaultProps = {
-  getUserData: () => null,
+  getUserData: null,
   match: {},
   user: {},
 };
